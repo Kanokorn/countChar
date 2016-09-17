@@ -2,16 +2,18 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
-	"os"
 	"unicode/utf8"
 )
 
 func main() {
-	fileName := os.Args[1]
-	data, err := ioutil.ReadFile(fileName)
+	fileName := flag.String("fileName", "", "file name")
+	flag.Parse()
+
+	data, err := ioutil.ReadFile(*fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
