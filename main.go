@@ -6,16 +6,24 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"unicode/utf8"
 )
 
 func main() {
-	fileName := flag.String("fileName", "", "file name")
-	flag.Parse()
+	var data []byte
+	var err error
 
-	data, err := ioutil.ReadFile(*fileName)
-	if err != nil {
-		log.Fatal(err)
+	if len(os.Args) > 2 {
+		fileName := flag.String("fileName", "", "file name")
+		flag.Parse()
+
+		data, err = ioutil.ReadFile(*fileName)
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		data = []byte(os.Args[1])
 	}
 
 	trimed := bytes.TrimRight(data, "\n")
